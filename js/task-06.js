@@ -1,7 +1,8 @@
 const textInput = document.querySelector('#validation-input');
 
 const inputLenghtCheck = (event) => {
-    if (event.currentTarget.value.length < event.target.dataset.length) {
+  
+    if (event.currentTarget.value.length !== Number(event.target.dataset.length)) {
         textInput.classList.remove('valid');
         textInput.classList.add('invalid');  
     } else {
