@@ -8,27 +8,33 @@ const destroyBtn = document.querySelector('button[data-destroy]');
 const boxesId = document.querySelector('#boxes');
 const controlsRef = document.querySelector('#controls');
 
-function createBoxes(amount) {
+function createBoxes(value, step) {
   const arr = [];
-  
-  for (let i = 0; i < amount; i += 1) {
+  for (let i = 0; i < value; i += step) {
     const color = getRandomHexColor();
+
     const divEl = document.createElement('div');
     divEl.style.width = `${30 + i * 10}px`;
     divEl.style.height = `${30 + i * 10}px`;
     divEl.style.backgroundColor = color;
+
     arr.push(divEl);
   }
+
   boxesId.append(...arr);
 }
 
-
 const onCreateBtnClick = () => {
-  createBoxes(controlsRef.firstElementChild.value);
-}
+  const { max, min, step, value } = controlsRef.firstElementChild;
 
-const onDestroyBtnClick = () => {
+  if (value >= Number(min) && value <= Number(max)) {
+    createBoxes(value, Number(step));
+  }
+};
+
+function onDestroyBtnClick() {
   boxesId.innerHTML = '';
+  controlsRef.firstElementChild.value = '';
 }
 
 createBtn.addEventListener('click', onCreateBtnClick);
